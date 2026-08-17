@@ -1,13 +1,13 @@
 // config.js
 window.CONFIG = {
   // Store Details
-  storeName: "Putra Btt Store", // Full Store Name
-  shortStoreName: "Putra Btt Store",
+  storeName: "Peony Store", // Full Store Name
+  shortStoreName: "Peony Store",
   whatsappNumber: "6283865477000", // Format: 62xxxxxxxxxx (no + or spaces)
   telegramUsername: "-",
-  telegramLink: "https://t.me/AutoOrderPBS_bot",
-  websiteUrl: "https://putrabttstore.web.id",
-  emailAdmin: "admin@putrabttstore.web.id",
+  telegramLink: "",
+  websiteUrl: "",
+  emailAdmin: "",
   workHours: "08:00 – 23:00 WITA",
   location: "Indonesia",
   qrisImagePath: "qris.png", // Path or URL to QRIS payment image
