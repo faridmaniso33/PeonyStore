@@ -13,7 +13,7 @@ window.CONFIG = {
   qrisImagePath: "qris.png", // Path or URL to QRIS payment image
 
   // Google Sheets Config (for index.html)
-  sheetIdProducts: "1gXUenYCrCgTwn__ujVIHw9pOODIV_f0JsdNMAFla9oQ",
+  sheetIdProducts: "1bdnXrwr84blKbZVQR0LRS0gDrQ2Arh8v-MmLAJK4Y84",
   sheetNameProducts: "Produk",
   sheetNameInfo: "informasi_modal",
 
@@ -298,9 +298,19 @@ function applyDynamicBranding() {
     }
   });
 
-  // 5. Update QRIS images
+  // 5. Update QRIS images & T&C Buttons
   const qrisImages = document.querySelectorAll('img[src="qris.png"], img[alt*="QRIS"]');
   qrisImages.forEach(img => {
     img.src = cfg.qrisImagePath;
   });
+
+  const tncWaBtn = document.getElementById('tncWaBtn');
+  if (tncWaBtn && cfg.whatsappNumber) {
+    tncWaBtn.href = `https://wa.me/${cfg.whatsappNumber}`;
+  }
+
+  const tncTeleBtn = document.getElementById('tncTeleBtn');
+  if (tncTeleBtn && (cfg.telegramLink || cfg.telegramUsername)) {
+    tncTeleBtn.href = cfg.telegramLink || `https://t.me/${cfg.telegramUsername}`;
+  }
 }

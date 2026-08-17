@@ -959,6 +959,166 @@ main {
   transform: scale(1.03);
 }
 
+/* ══════════════════════════════════════════════
+   TERMS & CONDITIONS ACCORDION & CONTACT CARD
+   ══════════════════════════════════════════════ */
+.tnc-container {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.tnc-accordion {
+  background: var(--white);
+  border-radius: 20px;
+  border: 2px solid var(--pink-light);
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(244,114,182,0.06);
+  transition: all 0.25s ease;
+}
+
+.tnc-accordion:hover {
+  border-color: var(--pink-mid);
+  box-shadow: 0 6px 20px rgba(236,72,153,0.12);
+}
+
+.tnc-acc-btn {
+  width: 100%;
+  padding: 18px 24px;
+  border: none;
+  background: var(--white);
+  color: var(--text-dark);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  text-align: left;
+  transition: background-color 0.2s ease;
+}
+
+.tnc-acc-btn:hover {
+  background: var(--pink-pale);
+}
+
+.tnc-acc-icon {
+  font-size: 1.3rem;
+  flex-shrink: 0;
+}
+
+.tnc-acc-title {
+  font-family: 'Fredoka One', cursive;
+  font-size: 1.05rem;
+  color: var(--text-dark);
+  flex-grow: 1;
+}
+
+.tnc-acc-arrow {
+  font-size: 1.4rem;
+  color: var(--pink-hot);
+  font-weight: 800;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.tnc-accordion.open .tnc-acc-arrow {
+  transform: rotate(90deg);
+}
+
+.tnc-acc-body {
+  display: none;
+  padding: 0 24px 22px;
+  color: var(--text-dark);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  border-top: 1.5px dashed var(--pink-light);
+  background: var(--pink-pale);
+  padding-top: 18px;
+}
+
+.tnc-accordion.open .tnc-acc-body {
+  display: block;
+  animation: fadeIn 0.25s ease-out;
+}
+
+.tnc-acc-body ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.tnc-acc-body li {
+  position: relative;
+  padding-left: 22px;
+}
+
+.tnc-acc-body li::before {
+  content: '✦';
+  position: absolute;
+  left: 0;
+  color: var(--pink-hot);
+  font-size: 0.8rem;
+}
+
+/* Contact Card */
+.tnc-contact-card {
+  background: linear-gradient(135deg, #FDF2F8 0%, #FBCFE8 100%);
+  border-radius: 24px;
+  border: 2px solid var(--pink-mid);
+  padding: 28px;
+  box-shadow: 0 8px 25px rgba(236,72,153,0.15);
+  margin-top: 20px;
+  text-align: center;
+}
+
+.tnc-contact-header {
+  font-family: 'Fredoka One', cursive;
+  font-size: 1.35rem;
+  color: var(--text-dark);
+  margin-bottom: 8px;
+}
+
+.tnc-contact-sub {
+  font-size: 0.88rem;
+  color: var(--text-dark);
+  margin-bottom: 20px;
+  opacity: 0.9;
+}
+
+.tnc-social-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+}
+
+.tnc-social-btn {
+  padding: 12px 18px;
+  border-radius: 16px;
+  background: var(--white);
+  border: 2px solid var(--pink-light);
+  color: var(--text-dark);
+  font-family: 'Nunito', sans-serif;
+  font-weight: 800;
+  font-size: 0.85rem;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 12px rgba(244,114,182,0.08);
+}
+
+.tnc-social-btn:hover {
+  transform: translateY(-3px);
+  border-color: var(--pink-hot);
+  box-shadow: 0 8px 20px rgba(236,72,153,0.2);
+  color: var(--pink-hot);
+}
+
 /* Empty State */
 .empty-state {
   text-align: center;

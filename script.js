@@ -1,5 +1,5 @@
 // ========= SHEETS CONFIG =========
-const SHEET_ID = window.CONFIG?.sheetIdProducts || "1hepI0ZROjrJoaC0E7-ObtvComMCfC_KNmuISPij1uD8";
+const SHEET_ID = window.CONFIG?.sheetIdProducts || "1bdnXrwr84blKbZVQR0LRS0gDrQ2Arh8v-MmLAJK4Y84";
 const SHEET_NAME = window.CONFIG?.sheetNameProducts || "Produk";
 const DEFAULT_WA = window.CONFIG?.whatsappNumber || "6283865477000";
 const SHEET_JSON_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(SHEET_NAME)}`;
@@ -493,6 +493,13 @@ window.submitTestimonial = function () {
   textEl.value = '';
   renderTestimonials();
   alert("Terima kasih atas ulasan manis kamu! 🌸");
+};
+
+window.toggleAcc = function (btn) {
+  const accordion = btn.closest('.tnc-accordion');
+  if (accordion) {
+    accordion.classList.toggle('open');
+  }
 };
 
 // ===== Initializer =====
