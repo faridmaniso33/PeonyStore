@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="config.js"></script>
+  <title>Store — Premium Apps</title>
+
+  <!-- Bootstrap 5 & FontAwesome -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+
+  <div class="notif" id="notif"></div>
+
+  <!-- ─── HEADER ─── -->
+  <header>
+    <div class="header-left">
+      <span class="header-eyebrow">✦ Trusted Premium Apps Seller</span>
+      <div class="header-brand">
+        <img class="header-logo-img" id="store-logo" src="logotmailpbs.png" alt="Rain Store Logo"
+          onerror="this.style.display='none'; document.getElementById('logo-placeholder').style.display='flex';">
+        <div class="header-logo-placeholder" id="logo-placeholder" style="display:none">🌧️</div>
+        <div class="header-title-wrap">
+          <span class="header-title">Huraa <em>Fashion</em></span>
+          <span class="header-subtitle" id="store-subtitle">
+            ⊹ &nbsp;♡ྀི &nbsp;<b>HuraaFashion</b>⠀𓉳 &nbsp;❤️︎ &nbsp;⊹ ⎯⎯⎯ &nbsp;🎀🪞 laman terpercaya dengan aplikasi
+            premium berkualitas 🕯️🌸 ⊹ ⊹ menyajikan pelayanan bintang lima ✿ ⊹ ⁺ 𝜗ৎ &nbsp;𓌔𓌔𓌔 &nbsp;˖˚ welcome to
+            ethereal page! ♡⠀𝜗ৎ⠀⊹
+          </span>
+        </div>
+      </div>
+      <div class="header-stats">
+        <div class="hstat">
+          <span class="hstat-num" id="stat-ready">12+</span>
+          <span class="hstat-label">Produk Ready</span>
+        </div>
+        <div class="hstat">
+          <span class="hstat-num">100%</span>
+          <span class="hstat-label">Terpercaya</span>
+        </div>
+        <div class="hstat">
+          <span class="hstat-num">Fast</span>
+          <span class="hstat-label">Response</span>
+        </div>
+      </div>
+    </div>
+    <div class="header-right">
+      <span class="header-right-text">HuraaFashion · Premium Apps · 2026</span>
+    </div>
+  </header>
+
+  <!-- ─── TICKER MARQUEE ─── -->
+  <div class="header-ticker">
+    <div class="ticker-track">
+      <span class="ticker-item">Netflix</span>
+      <span class="ticker-item">Disney+</span>
+      <span class="ticker-item">Spotify</span>
+      <span class="ticker-item">Canva Pro</span>
+      <span class="ticker-item">YouTube Premium</span>
+      <span class="ticker-item">CapCut Pro</span>
+      <span class="ticker-item">Vidio</span>
+      <span class="ticker-item">VIU</span>
+      <span class="ticker-item">iQIYI</span>
+      <span class="ticker-item">HBO Max</span>
+      <span class="ticker-item">Shortmax</span>
+      <span class="ticker-item">ReelShort</span>
+      <span class="ticker-item">DramaBox</span>
+      <span class="ticker-item">Lightroom</span>
+      <span class="ticker-item">Goodnotes</span>
+      <span class="ticker-item">Fast Response ✦</span>
+      <!-- Loop duplicate -->
+      <span class="ticker-item">Netflix</span>
+      <span class="ticker-item">Disney+</span>
+      <span class="ticker-item">Spotify</span>
+      <span class="ticker-item">Canva Pro</span>
+      <span class="ticker-item">YouTube Premium</span>
+      <span class="ticker-item">CapCut Pro</span>
+      <span class="ticker-item">Vidio</span>
+      <span class="ticker-item">VIU</span>
+      <span class="ticker-item">iQIYI</span>
+      <span class="ticker-item">HBO Max</span>
+      <span class="ticker-item">Shortmax</span>
+      <span class="ticker-item">ReelShort</span>
+      <span class="ticker-item">DramaBox</span>
+      <span class="ticker-item">Lightroom</span>
+      <span class="ticker-item">Goodnotes</span>
+      <span class="ticker-item">Fast Response ✦</span>
+    </div>
+  </div>
+
+  <!-- ─── STICKY NAVIGATION ─── -->
+  <nav id="mainNavbar">
+    <div class="page-nav">
+      <button class="nav-btn active" onclick="showPage('shop')">
+        <i class="fa-solid fa-store"></i> Shop
+      </button>
+      <button class="nav-btn" onclick="showPage('testi')">
+        <i class="fa-solid fa-heart"></i> Testimoni
+      </button>
+      <button class="nav-btn" onclick="showPage('tnc')">
+        <i class="fa-solid fa-file-contract"></i> Terms &amp; Conditions
+      </button>
+    </div>
+    <div class="d-flex align-items-center gap-2">
+      <button class="nav-btn text-dark" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <span>Keranjang</span>
+        <span class="nav-badge" id="navCartCount">0</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ─── MAIN CONTENT AREA ─── -->
+  <main>
+
+    <!-- SHOP PAGE TABS -->
+    <div class="page active" id="page-shop">
+      <div class="section-header">
+        <h2 class="section-title">Pricelist</h2>
+        <span class="section-count" id="product-count"></span>
+      </div>
+
+      <div class="shop-controls">
+        <div class="search-wrap">
+          <span class="search-ico">⌕</span>
+          <input type="text" id="searchInput" placeholder="Cari aplikasi…" />
+        </div>
+        <div class="cat-pills" id="cat-bar">
+          <!-- Dynamic Category Pills -->
+        </div>
+      </div>
+
+      <!-- Product Grid -->
+      <div class="product-grid" id="produk-list">
+        <!-- Dynamic Products Load Here -->
+      </div>
+
+      <!-- Load More Button -->
+      <div class="text-center mt-4">
+        <button id="btnLoadMore" class="btn-card-buy" style="display:none; max-width: 220px; margin: 0 auto;">
+          Muat Lebih Banyak ✦
+        </button>
+      </div>
+    </div>
+
+    <!-- TESTIMONIALS PAGE TAB -->
+    <div class="page" id="page-testi">
+      <div class="section-header">
+        <h2 class="section-title">Testimoni Pelanggan</h2>
+      </div>
+
+      <div class="testi-grid" id="testi-grid">
+        <!-- Testimonials Cards Load Here -->
+      </div>
+
+      <div class="testi-form">
+        <div class="testi-form-title">Tulis Pengalamanmu 🌸</div>
+        <div class="star-select">
+          <span class="star-opt selected" data-v="1" onclick="setStar(1)">⭐</span>
+          <span class="star-opt selected" data-v="2" onclick="setStar(2)">⭐</span>
+          <span class="star-opt selected" data-v="3" onclick="setStar(3)">⭐</span>
+          <span class="star-opt selected" data-v="4" onclick="setStar(4)">⭐</span>
+          <span class="star-opt selected" data-v="5" onclick="setStar(5)">⭐</span>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Nama Kamu</label>
+          <input class="form-input" id="t-name" placeholder="Contoh: Putri A." />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Pengalaman &amp; Ulasan</label>
+          <textarea class="form-textarea" id="t-text" rows="3"
+            placeholder="Tuliskan kepuasanmu belanja di Rain Store..."></textarea>
+        </div>
+        <button class="btn-card-buy mt-3" onclick="submitTestimonial()">
+          Kirim Ulasan 💖
+        </button>
+      </div>
+    </div>
+
+    <!-- TERMS & CONDITIONS PAGE TAB -->
+    <div class="page" id="page-tnc">
+      <div class="section-header">
+        <h2 class="section-title">Terms &amp; Conditions</h2>
+      </div>
+
+      <div class="tnc-grid">
+        <div class="tnc-card">
+          <div class="tnc-icon">📋</div>
+          <div class="tnc-title">Pemesanan &amp; Durasi</div>
+          <ul class="tnc-list">
+            <li>Pastikan menyertakan nomor WhatsApp atau Email yang aktif saat order.</li>
+            <li>Proses pengerjaan kilat 5–15 menit setelah pembayaran terverifikasi.</li>
+            <li>Jam operasional toko: 08:00 – 23:00 WITA. Orderan luar jam kerja diproses esok hari.</li>
+          </ul>
+        </div>
+
+        <div class="tnc-card">
+          <div class="tnc-icon">🛡️</div>
+          <div class="tnc-title">Garansi Full Durasi</div>
+          <ul class="tnc-list">
+            <li>Semua produk mendapatkan garansi aktif sesuai paket langganan.</li>
+            <li>Jika timbul kendala akun/back to free, silakan chat CS untuk replacement instan.</li>
+            <li>Garansi hangus jika melanggar ketentuan penggunaan (misal ubah data utama).</li>
+          </ul>
+        </div>
+
+        <div class="tnc-card">
+          <div class="tnc-icon">💳</div>
+          <div class="tnc-title">Metode Pembayaran</div>
+          <ul class="tnc-list">
+            <li>Menerima pembayaran QRIS (Semua E-Wallet &amp; Mobile Banking).</li>
+            <li>Transfer Bank (BCA/Mandiri/BRI) &amp; E-Wallet (DANA, GoPay, OVO, ShopeePay).</li>
+            <li>Simpan bukti transfer untuk verifikasi pesanan otomatis via WhatsApp.</li>
+          </ul>
+        </div>
+
+        <div class="tnc-card">
+          <div class="tnc-icon">⚠️</div>
+          <div class="tnc-title">Aturan Penggunaan</div>
+          <ul class="tnc-list">
+            <li>Dilarang mengedit/mengubah password &amp; billing profil akun sharing.</li>
+            <li>Gunakan 1 akun hanya pada 1 device sesuai ketentuan varian.</li>
+            <li>Patuhi kebijakan privasi masing-masing platform streaming/aplikasi.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ─── FLOATING CART BUTTON ─── -->
+  <div class="floating-cart" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart">
+    <i class="fa-solid fa-basket-shopping"></i>
+    <span>Keranjang</span>
+    <span class="cart-count-badge" id="cartCount">0</span>
+  </div>
+
+  <!-- ─── MODAL DETAIL PRODUK ─── -->
+  <div class="modal fade" id="produkModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content" id="produkModalContent">
+        <div class="modal-header">
+          <h5 class="modal-title">Detail &amp; Varian Produk</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="modalBody">
+          <!-- Dynamic Variant Content -->
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal">Tutup</button>
+          <button type="button" class="btn btn-sm btn-primary" id="modalAddCart">
+            <i class="fa-solid fa-cart-plus me-1"></i> Tambah Keranjang
+          </button>
+          <a href="#" target="_blank" class="btn btn-sm btn-success" id="modalPesanBtn">
+            <i class="fab fa-whatsapp me-1"></i> Pesan Langsung
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── OFFCANVAS KERANJANG ─── -->
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasCart" aria-labelledby="offcanvasCartLabel">
+    <div class="offcanvas-header border-bottom">
+      <h5 class="offcanvas-title fw-bold" id="offcanvasCartLabel">
+        <i class="fa-solid fa-basket-shopping text-danger me-2"></i>Keranjang Belanja
+      </h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+      <div id="cartItems">
+        <!-- Dynamic Cart Items -->
+      </div>
+    </div>
+    <div class="offcanvas-footer p-3 border-top bg-light">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <span class="fw-bold">Total Pembayaran:</span>
+        <span class="fw-black text-danger fs-5" id="cartTotal">Rp0</span>
+      </div>
+      <div class="d-grid gap-2">
+        <a href="#" id="btnCheckoutWA" target="_blank" class="btn btn-success fw-bold">
+          <i class="fab fa-whatsapp me-2"></i>Checkout via WhatsApp
+        </a>
+        <button class="btn btn-outline-danger btn-sm" id="btnClearCart">
+          <i class="fa-solid fa-trash me-1"></i>Kosongkan Keranjang
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JS Dependencies -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="script.js"></script>
+
+  <!-- Anti Inspect & Security Script -->
+  <script>
+    (function initSecurity() {
+      document.addEventListener('contextmenu', (e) => e.preventDefault());
+      document.addEventListener('selectstart', (e) => {
+        const tag = e.target.tagName?.toLowerCase();
+        if (tag !== 'input' && tag !== 'textarea') e.preventDefault();
+      });
+      document.addEventListener('dragstart', (e) => e.preventDefault());
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'F12' || e.keyCode === 123) e.preventDefault();
+        if (e.ctrlKey && e.shiftKey && ['I', 'J', 'C'].includes(e.key?.toUpperCase())) e.preventDefault();
+        if (e.ctrlKey && ['U', 'S'].includes(e.key?.toUpperCase())) e.preventDefault();
+      });
+    })();
+  </script>
+
+</body>
+
+</html>
