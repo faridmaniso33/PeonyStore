@@ -1,8 +1,10 @@
 // ========= SHEETS CONFIG =========
 const SHEET_ID = window.CONFIG?.sheetIdProducts || "1bdnXrwr84blKbZVQR0LRS0gDrQ2Arh8v-MmLAJK4Y84";
 const SHEET_NAME = window.CONFIG?.sheetNameProducts || "Produk";
+const SHEET_TNC_NAME = window.CONFIG?.sheetNameTnc || "tnc";
 const DEFAULT_WA = window.CONFIG?.whatsappNumber || "6283865477000";
 const SHEET_JSON_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(SHEET_NAME)}`;
+const SHEET_TNC_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(SHEET_TNC_NAME)}`;
 
 // ========= STATE =========
 let produkVariants = []; // tiap baris sheet = varian
@@ -41,6 +43,8 @@ window.showPage = function (pageId) {
 
   if (pageId === 'testi') {
     renderTestimonials();
+  } else if (pageId === 'tnc') {
+    loadTncFromSheet();
   }
 };
 
@@ -207,6 +211,38 @@ function renderProduk(append = false) {
   }
 }
 
+function buildSingleVariantWALink(v, defaultWaGroup) {
+  const storeName = window.CONFIG?.storeName || "Peony Store";
+  const now = new Date();
+  const timeStr = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }).replace('.', ':');
+  const dateStr = now.toLocaleDateString('id-ID', { day: '2-digit', month: '2-digit', year: 'numeric' });
+  const dateTimeFormatted = `${timeStr}, ${dateStr}`;
+
+  const formatIDR = num => (Number(num) || 0).toLocaleString('id-ID');
+  const priceIDR = formatIDR(v.harga);
+
+  const text = `𓉳  ❤️︎  ⋆ 𓌔𓌔𓌔⠀${storeName} 𝐵𝑖𝑙𝑙  ࣪   .𖥔 ݁ ˖ 
+︶︶︶ ⊹ ︶︶︶ ୨♡୧ ︶︶︶ ⊹ ︶︶︶ 
+
+˚യ  ៶៲៸  🕯️  halo, aku mau pesan ini  Ი ⑅ ♡
+୨୧⠀⊹  🪞  payment  :  dana/qris/spay ♡ ︵ ⊹⠀୨୧
+
+ ⊹  ♡⌇ 🎀  nama   :  Nama Pemesan
+ ⊹  ♡⌇ 🌸  waktu  :  ${dateTimeFormatted}
+
+𓇚⠀✿  detail pesanan
+    ⊹ ꒰ 𓈒 ⓘ  pesanan 1  :  ${v.nama}  :  IDR. ${priceIDR}
+
+⊹ ⎯⎯⎯  ꒰꒰  𓉸ྀི  total order : IDR. ${priceIDR}
+
+🦢 ⁞ ⠀⁺ ⊹    thank you for purchase in ${storeName}, may your day blooming like flower 🌷 ⊹ ⊹ 
+
+ ⊹ ⎯⎯⎯  with love, ${storeName} 𓈒 ꒱⠀⊹ 𓇚⠀✿`;
+
+  const rawWa = (v.wa || defaultWaGroup || DEFAULT_WA).toString().replace(/[^0-9]/g, '');
+  return `https://wa.me/${rawWa}?text=${encodeURIComponent(text)}`;
+}
+
 // ===== Modal Detail & varian =====
 let bsModal = null;
 window.showDetailByKey = function (groupKey) {
@@ -232,6 +268,8 @@ window.showDetailByKey = function (groupKey) {
       ).join("")}</ul>`
       : "";
 
+    const singleWaUrl = buildSingleVariantWALink(v, group.wa);
+
     return `
       <div class="peony-variant-card">
         <div class="d-flex justify-content-between align-items-start mb-2">
@@ -254,8 +292,7 @@ window.showDetailByKey = function (groupKey) {
           <button class="btn-peony-cart" onclick="addToCart('${v.nama.replace(/'/g, "\\'")}'); new bootstrap.Offcanvas('#offcanvasCart').show();" ${stokOK ? '' : 'disabled'}>
             <i class="fa-solid fa-cart-plus"></i> + Keranjang
           </button>
-          <a href="https://wa.me/${encodeURIComponent(v.wa || group.wa || DEFAULT_WA)}?text=${encodeURIComponent(`Halo admin, saya ingin pesan ${v.nama} (${money(v.harga)})`)}"
-            target="_blank" class="btn-peony-wa ${stokOK ? '' : 'disabled'}">
+          <a href="${singleWaUrl}" target="_blank" class="btn-peony-wa ${stokOK ? '' : 'disabled'}">
             <i class="fab fa-whatsapp"></i> Pesan Varian Ini
           </a>
         </div>
@@ -300,7 +337,7 @@ window.showDetailByKey = function (groupKey) {
   `;
 
   if (primaryVariant && modalPesanBtn && modalAddCart) {
-    modalPesanBtn.href = `https://wa.me/${encodeURIComponent(primaryVariant.wa || group.wa || DEFAULT_WA)}?text=${encodeURIComponent(`Halo admin, saya ingin pesan ${primaryVariant.nama} (${money(primaryVariant.harga)})`)}`;
+    modalPesanBtn.href = buildSingleVariantWALink(primaryVariant, group.wa);
     modalAddCart.onclick = () => {
       addToCart(primaryVariant.nama);
       bsModal.hide();
@@ -315,7 +352,11 @@ window.showDetailByKey = function (groupKey) {
 async function loadProdukFromSheet() {
   showLoading();
   try {
-    const res = await fetch(SHEET_JSON_URL, { cache: 'no-store' });
+    const freshUrl = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(SHEET_NAME)}&_t=${Date.now()}`;
+    const res = await fetch(freshUrl, {
+      cache: 'no-store',
+      headers: { 'Cache-Control': 'no-cache, no-store, must-revalidate', 'Pragma': 'no-cache' }
+    });
     const text = await res.text();
     const json = JSON.parse(text.substring(47, text.length - 2));
     const rows = json.table.rows || [];
@@ -359,6 +400,87 @@ async function loadProdukFromSheet() {
         </div>`;
     }
   }
+}
+
+// ===== Load Terms & Conditions Dari Sheet (Simple: Kolom A = judul, Kolom B = deskripsi) =====
+async function loadTncFromSheet() {
+  try {
+    const freshTncUrl = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(SHEET_TNC_NAME)}&_t=${Date.now()}`;
+    const res = await fetch(freshTncUrl, {
+      cache: 'no-store',
+      headers: { 'Cache-Control': 'no-cache, no-store, must-revalidate', 'Pragma': 'no-cache' }
+    });
+    const text = await res.text();
+    const json = JSON.parse(text.substring(47, text.length - 2));
+    const rows = json.table.rows || [];
+
+    const safeDecode = str => {
+      if (!str) return "";
+      try { return decodeURIComponent(str); } catch { return str; }
+    };
+
+    const tncData = rows.map(r => {
+      const c = r.c || [];
+      const rawJ = (c[0]?.v ?? "").toString().trim();
+      const rawD = (c[1]?.v ?? "").toString().trim();
+      const judul = safeDecode(rawJ);
+      const deskripsi = safeDecode(rawD);
+      return { judul, deskripsi };
+    }).filter(item => {
+      const j = item.judul.toLowerCase();
+      const d = item.deskripsi.toLowerCase();
+      if (j === "judul" && d === "deskripsi") return false;
+      return item.judul || item.deskripsi;
+    });
+
+    if (tncData.length > 0) {
+      renderTncAccordions(tncData);
+    }
+  } catch (err) {
+    console.warn("Spreadsheet Terms & Conditions belum memuat data, menggunakan tampilan default.", err);
+  }
+}
+
+function renderTncAccordions(tncList) {
+  const container = document.querySelector("#page-tnc .tnc-container");
+  if (!container) return;
+
+  const contactCard = container.querySelector(".tnc-contact-card");
+
+  const accordionsHTML = tncList.map((item, index) => {
+    const isOpen = index === 0 ? "open" : "";
+    const isList = item.deskripsi.includes("||") || item.deskripsi.includes("\n");
+
+    let bodyHTML = "";
+    if (isList) {
+      const items = item.deskripsi.split(/\|\||\n/).map(s => s.trim()).filter(Boolean);
+      bodyHTML = `<ul>${items.map(it => {
+        if (it.includes("—") || it.includes("-")) {
+          const parts = it.split(/—|-/);
+          const t = parts[0].trim();
+          const d = parts.slice(1).join("—").trim();
+          return `<li><strong>${t}</strong> — ${d}</li>`;
+        }
+        return `<li>${it}</li>`;
+      }).join("")}</ul>`;
+    } else {
+      bodyHTML = `<p>${item.deskripsi.replace(/\n/g, "<br>")}</p>`;
+    }
+
+    return `
+      <div class="tnc-accordion ${isOpen}">
+        <button class="tnc-acc-btn" onclick="toggleAcc(this)">
+          <span class="tnc-acc-title">${item.judul}</span>
+          <span class="tnc-acc-arrow">›</span>
+        </button>
+        <div class="tnc-acc-body">
+          ${bodyHTML}
+        </div>
+      </div>`;
+  }).join("");
+
+  const contactCardHTML = contactCard ? contactCard.outerHTML : "";
+  container.innerHTML = accordionsHTML + contactCardHTML;
 }
 
 // ===== Cart & Wishlist Logic =====
@@ -427,12 +549,51 @@ function updateCartUI() {
 
   if (cartTotalEl) cartTotalEl.textContent = money(total);
 
-  const lines = cart.map(ci => `• ${ci.nama} x${ci.qty} = ${money(ci.harga * ci.qty)}`).join('\n');
-  const text = `Halo admin, saya ingin checkout:\n${lines}\n\nTotal: ${money(total)}\n\nTerima kasih.`;
+  // Formatting helper for IDR currency without 'Rp' prefix (e.g. 15.000)
+  const formatIDR = num => (Number(num) || 0).toLocaleString('id-ID');
+
+  // Formatting date and time
+  const now = new Date();
+  const timeStr = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }).replace('.', ':');
+  const dateStr = now.toLocaleDateString('id-ID', { day: '2-digit', month: '2-digit', year: 'numeric' });
+  const dateTimeFormatted = `${timeStr}, ${dateStr}`;
+
+  const storeName = window.CONFIG?.storeName || "Peony Store";
+  const buyerNameVal = document.getElementById("buyerName")?.value.trim();
+  const buyerName = buyerNameVal || "Nama Pemesan";
+  const paymentVal = document.getElementById("paymentMethod")?.value || "dana/qris/spay";
+
+  // Format detail pesanan lines
+  const detailPesananLines = cart.map((ci, i) => {
+    const itemSub = formatIDR((ci.harga || 0) * (ci.qty || 1));
+    const qtyLabel = ci.qty > 1 ? ` (${ci.qty}x)` : '';
+    return `    ⊹ ꒰ 𓈒 ⓘ  pesanan ${i + 1}  :  ${ci.nama}${qtyLabel} (IDR. ${itemSub})`;
+  }).join('\n');
+
+  const totalIDR = formatIDR(total);
+
+  const text = `𓉳  ❤️︎  ⋆ 𓌔𓌔𓌔⠀${storeName} 𝐵𝑖𝑙𝑙  ࣪   .𖥔 ݁ ˖ 
+︶︶︶ ⊹ ︶︶︶ ୨♡୧ ︶︶︶ ⊹ ︶︶︶ 
+
+˚യ  ៶៲៸  🕯️  halo, aku mau pesan ini  Ი ⑅ ♡
+୨୧⠀⊹  🪞  payment  :  ${paymentVal} ♡ ︵ ⊹⠀୨୧
+
+ ⊹  ♡⌇ 🎀  nama   :  ${buyerName}
+ ⊹  ♡⌇ 🌸  waktu  :  ${dateTimeFormatted}
+
+𓇚⠀✿  detail pesanan
+${detailPesananLines}
+
+⊹ ⎯⎯⎯  ꒰꒰  𓉸ྀི  total order : IDR. ${totalIDR}
+
+🦢 ⁞ ⠀⁺ ⊹    thank you for purchase in ${storeName}, may your day blooming like flower 🌷 ⊹ ⊹ 
+
+ ⊹ ⎯⎯⎯  with love, ${storeName} 𓈒 ꒱⠀⊹ 𓇚⠀✿`;
+
   const uniqueWAs = [...new Set(cart.map(c => c.wa || DEFAULT_WA))];
   const waTarget = uniqueWAs.length === 1 ? uniqueWAs[0] : DEFAULT_WA;
   if (btnCheckoutWA) {
-    btnCheckoutWA.href = `https://wa.me/${encodeURIComponent(waTarget)}?text=${encodeURIComponent(text)}`;
+    btnCheckoutWA.href = `https://wa.me/${encodeURIComponent(waTarget.replace(/[^0-9]/g, ''))}?text=${encodeURIComponent(text)}`;
   }
 }
 
@@ -505,6 +666,7 @@ window.toggleAcc = function (btn) {
 // ===== Initializer =====
 document.addEventListener('DOMContentLoaded', () => {
   loadProdukFromSheet();
+  loadTncFromSheet();
   updateCartUI();
   renderTestimonials();
 

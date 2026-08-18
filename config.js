@@ -16,6 +16,7 @@ window.CONFIG = {
   sheetIdProducts: "1bdnXrwr84blKbZVQR0LRS0gDrQ2Arh8v-MmLAJK4Y84",
   sheetNameProducts: "Produk",
   sheetNameInfo: "informasi_modal",
+  sheetNameTnc: "tnc", // Tab untuk Terms & Conditions (Kolom A: judul, Kolom B: deskripsi)
 
   // Theme Config
   // Options: "peony" (default), "green", "blue", "purple", "orange", "red", "custom"
