@@ -7,7 +7,7 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
-  <script src="config.js"></script>
+  <script src="config.js?_v=20260819_03"></script>
   <title>Store — Premium Apps</title>
 
   <!-- Bootstrap 5 & FontAwesome -->
@@ -15,7 +15,7 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
 
   <!-- Custom Stylesheet -->
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles.css?_v=20260819_03" />
 </head>
 
 <body>
@@ -27,13 +27,13 @@
     <div class="header-left">
       <span class="header-eyebrow">✦ Trusted Premium Apps Seller</span>
       <div class="header-brand">
-        <img class="header-logo-img" id="store-logo" src="logo-peony.jpg" alt="Rain Store Logo"
+        <img class="header-logo-img" id="store-logo" src="logo-peony.jpg" alt="Store Logo"
           onerror="this.style.display='none'; document.getElementById('logo-placeholder').style.display='flex';">
-        <div class="header-logo-placeholder" id="logo-placeholder" style="display:none">🌧️</div>
+        <div class="header-logo-placeholder" id="logo-placeholder" style="display:none">🌸</div>
         <div class="header-title-wrap">
-          <span class="header-title">Huraa <em>Fashion</em></span>
+          <span class="header-title">Store <em>Name</em></span>
           <span class="header-subtitle" id="store-subtitle">
-            ⊹ &nbsp;♡ྀི &nbsp;<b>HuraaFashion</b>⠀𓉳 &nbsp;❤️︎ &nbsp;⊹ ⎯⎯⎯ &nbsp;🎀🪞 laman terpercaya dengan aplikasi
+            ⊹ &nbsp;♡ྀི &nbsp;<b>Store</b>⠀𓉳 &nbsp;❤️︎ &nbsp;⊹ ⎯⎯⎯ &nbsp;🎀🪞 laman terpercaya dengan aplikasi
             premium berkualitas 🕯️🌸 ⊹ ⊹ menyajikan pelayanan bintang lima ✿ ⊹ ⁺ 𝜗ৎ &nbsp;𓌔𓌔𓌔 &nbsp;˖˚ welcome to
             ethereal page! ♡⠀𝜗ৎ⠀⊹
           </span>
@@ -52,10 +52,12 @@
           <span class="hstat-num">Fast</span>
           <span class="hstat-label">Response</span>
         </div>
+        <div class="hstat">
+        </div>
       </div>
     </div>
     <div class="header-right">
-      <span class="header-right-text">HuraaFashion · Premium Apps · 2026</span>
+      <span class="header-right-text">Store · Premium Apps · 2026</span>
     </div>
   </header>
 
@@ -179,7 +181,7 @@
         <div class="form-group">
           <label class="form-label">Pengalaman &amp; Ulasan</label>
           <textarea class="form-textarea" id="t-text" rows="3"
-            placeholder="Tuliskan kepuasanmu belanja di Rain Store..."></textarea>
+            placeholder="Tuliskan kepuasanmu belanja di toko kami..."></textarea>
         </div>
         <button class="btn-card-buy mt-3" onclick="submitTestimonial()">
           Kirim Ulasan 💖
@@ -191,7 +193,7 @@
     <div class="page" id="page-tnc">
       <div class="section-header justify-content-center text-center mb-4">
         <h2 class="section-title">
-          ⠀❤️︎⠀ ݂   ۫    🎀🦢 Terms and Conditions⠀𓉳 𑁍  ۫   ݂⠀
+          ⠀❤️︎⠀ ݂ ۫ 🎀🦢 Terms and Conditions⠀𓉳 𑁍 ۫ ݂⠀
         </h2>
       </div>
 
@@ -214,7 +216,7 @@
               <i class="fab fa-telegram text-primary fs-5"></i>
               <span>Testimonial</span>
             </a>
-            <a class="tnc-social-btn twitter" href="https://x.com" id="tncXBtn" target="_blank">
+            <a class="tnc-social-btn twitter" href="https://x.com/rainztore?s=21" id="tncXBtn" target="_blank">
               <i class="fab fa-x-twitter text-dark fs-5"></i>
               <span>X (Twitter)</span>
             </a>
@@ -232,6 +234,83 @@
     </div>
 
   </main>
+
+  <!-- ─── FOOTER FULL-WIDTH ─── -->
+  <footer class="site-footer-full">
+    <div class="container px-4">
+      <div class="row g-4 justify-content-between align-items-start">
+        
+        <!-- Brand Info -->
+        <div class="col-lg-4 col-md-6">
+          <div class="footer-brand-wrap">
+            <img class="footer-brand-logo-img" src="logo-peony.jpg" alt="Store Logo" onerror="this.style.display='none';">
+            <div>
+              <div class="footer-brand-title footer-brand-name">Peony Store</div>
+              <span class="badge bg-light text-dark fw-bold border">✦ Premium Apps</span>
+            </div>
+          </div>
+          <p class="footer-brand-desc">
+            Laman terpercaya dengan aplikasi premium berkualitas 🕯️🌸. Menyajikan pelayanan bintang lima untuk kepuasan belanja digital Anda!
+          </p>
+          <div class="footer-badges">
+            <span class="footer-badge">✦ 100% Terpercaya</span>
+            <span class="footer-badge">⚡ Fast Response</span>
+            <span class="footer-badge">🛍️ Garansi Penuh</span>
+          </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="col-lg-3 col-md-6">
+          <div class="footer-sec-title">
+            <span>🌸 Navigasi Menu</span>
+          </div>
+          <ul class="footer-nav-list">
+            <li><a href="#" onclick="showPage('shop'); window.scrollTo({top:0, behavior:'smooth'}); return false;"><i class="fa-solid fa-store me-1 text-pink-hot"></i> Pricelist Shop</a></li>
+            <li><a href="#" onclick="showPage('testi'); window.scrollTo({top:0, behavior:'smooth'}); return false;"><i class="fa-solid fa-heart me-1 text-danger"></i> Testimoni Pelanggan</a></li>
+            <li><a href="#" onclick="showPage('tnc'); window.scrollTo({top:0, behavior:'smooth'}); return false;"><i class="fa-solid fa-file-contract me-1 text-primary"></i> Terms &amp; Conditions</a></li>
+            <li><a href="#" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart"><i class="fa-solid fa-cart-shopping me-1 text-success"></i> Keranjang Belanja</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact Info & Socials -->
+        <div class="col-lg-4 col-md-12">
+          <div class="tnc-contact-card m-0" style="background: rgba(255,255,255,0.88);">
+            <div class="tnc-contact-header">
+              ⊹ ꒰ 𓈒 ♡&nbsp;&nbsp; ︙ 𝑪𝒐𝒏𝒕𝒂𝒄𝒕 𝒊𝒏𝒇𝒐 &nbsp;🌸🕯️
+            </div>
+            <div class="tnc-contact-sub">
+              ╰─── 🪞🎀&nbsp; Hubungi Admin <b class="footer-brand-name">Store</b> ⊹⠀° ♡ untuk pertanyaan &amp; konsultasi 🦢
+            </div>
+            <div class="tnc-social-grid">
+              <a class="tnc-social-btn telegram footer-tele-btn" href="#" target="_blank">
+                <i class="fab fa-telegram text-primary fs-5"></i>
+                <span>Testimonial</span>
+              </a>
+              <a class="tnc-social-btn twitter" href="https://x.com/rainztore?s=21" target="_blank">
+                <i class="fab fa-x-twitter text-dark fs-5"></i>
+                <span>X (Twitter)</span>
+              </a>
+              <a class="tnc-social-btn instagram" href="https://instagram.com" target="_blank">
+                <i class="fab fa-instagram text-danger fs-5"></i>
+                <span>Instagram</span>
+              </a>
+              <a class="tnc-social-btn whatsapp footer-wa-btn" href="#" target="_blank">
+                <i class="fab fa-whatsapp text-success fs-5"></i>
+                <span>WhatsApp CS</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom Bar -->
+      <div class="footer-bottom-bar">
+        <p class="mb-0">© <span id="footerYear">2026</span> <strong class="footer-brand-name">Peony Store</strong>. All rights reserved. Made with love 🌷</p>
+      </div>
+
+    </div>
+  </footer>
 
   <!-- ─── FLOATING CART BUTTON ─── -->
   <div class="floating-cart" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart">
@@ -279,7 +358,8 @@
       <div class="checkout-inputs mt-3 pt-3 border-top">
         <div class="mb-2">
           <label class="form-label small fw-bold text-dark mb-1">🎀 Nama Pemesan</label>
-          <input type="text" class="form-control form-control-sm" id="buyerName" placeholder="Tuliskan nama kamu..." oninput="updateCartUI()">
+          <input type="text" class="form-control form-control-sm" id="buyerName" placeholder="Tuliskan nama kamu..."
+            oninput="updateCartUI()">
         </div>
         <div class="mb-2">
           <label class="form-label small fw-bold text-dark mb-1">🪞 Metode Pembayaran</label>
@@ -312,7 +392,7 @@
 
   <!-- JS Dependencies -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="script.js"></script>
+  <script src="script.js?_v=20260819_03"></script>
 
   <!-- Anti Inspect & Security Script -->
   <script>

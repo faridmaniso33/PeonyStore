@@ -1,11 +1,11 @@
 // config.js
 window.CONFIG = {
   // Store Details
-  storeName: "Rains", // Full Store Name
-  shortStoreName: "Rains",
-  whatsappNumber: "6283865477000", // Format: 62xxxxxxxxxx (no + or spaces)
-  telegramUsername: "-",
-  telegramLink: "",
+  storeName: "Rain Store", // Full Store Name
+  shortStoreName: "Rain Store",
+  whatsappNumber: "6287751126614", // Format: 62xxxxxxxxxx (no + or spaces)
+  telegramUsername: "Mavhdu",
+  telegramLink: "https://t.me/rainstoreproof",
   websiteUrl: "",
   emailAdmin: "",
   workHours: "08:00 – 23:00 WITA",
@@ -206,7 +206,7 @@ function applyDynamicBranding() {
   }
 
   // 3. Safe Text Nodes Traversal & Replacement
-  const searchRegName = /Putra Btt Store|Rain Store|HuraaFashion|Huraa Fashion|𝑹𝒂𝒊𝒏 𝑺𝒕𝒐𝒓𝒆/gi;
+  const searchRegName = /Putra Btt Store|Rain Store|HuraaFashion|Huraa Fashion|𝑹𝒂𝒊𝒏 𝑺𝒕𝒐𝒓𝒆|Rainztore|Peony Store/gi;
   const searchRegShort = /\bPBS\b/g;
   const searchRegWa = /6282340915319|6283865477000/g;
   const searchRegTele = /AutoOrderPBS_bot/gi;
@@ -235,11 +235,11 @@ function applyDynamicBranding() {
           changed = true;
         }
         if (val.match(searchRegWeb)) {
-          val = val.replace(searchRegWeb, cfg.websiteUrl.replace(/^https?:\/\//i, ''));
+          val = val.replace(searchRegWeb, (cfg.websiteUrl || '').replace(/^https?:\/\//i, ''));
           changed = true;
         }
         if (val.match(searchRegEmail)) {
-          val = val.replace(searchRegEmail, cfg.emailAdmin);
+          val = val.replace(searchRegEmail, cfg.emailAdmin || '');
           changed = true;
         }
         if (changed) {
@@ -247,6 +247,17 @@ function applyDynamicBranding() {
         }
       }
     } else if (node.nodeName !== 'SCRIPT' && node.nodeName !== 'STYLE') {
+      // Also check placeholder and alt attributes
+      if (node.getAttribute) {
+        const ph = node.getAttribute('placeholder');
+        if (ph && ph.match(searchRegName)) {
+          node.setAttribute('placeholder', ph.replace(searchRegName, cfg.storeName));
+        }
+        const alt = node.getAttribute('alt');
+        if (alt && alt.match(searchRegName)) {
+          node.setAttribute('alt', alt.replace(searchRegName, cfg.storeName));
+        }
+      }
       for (let i = 0; i < node.childNodes.length; i++) {
         walkTextNodes(node.childNodes[i]);
       }
@@ -257,15 +268,15 @@ function applyDynamicBranding() {
     walkTextNodes(document.body);
   }
 
-  // 3. Update Anchor Hrefs
+  // 4. Update Anchor Hrefs
   const links = document.querySelectorAll('a[href]');
   links.forEach(link => {
     let href = link.getAttribute('href');
     if (href) {
-      href = href.replace(/6282340915319/g, cfg.whatsappNumber);
-      href = href.replace(/AutoOrderPBS_bot/g, cfg.telegramUsername);
-      href = href.replace(/putrabttstore\.web\.id/g, cfg.websiteUrl.replace(/^https?:\/\//i, ''));
-      href = href.replace(/admin@putrabttstore\.web\.id/g, cfg.emailAdmin);
+      if (cfg.whatsappNumber) href = href.replace(/6282340915319/g, cfg.whatsappNumber);
+      if (cfg.telegramUsername) href = href.replace(/AutoOrderPBS_bot/g, cfg.telegramUsername);
+      if (cfg.websiteUrl) href = href.replace(/putrabttstore\.web\.id/g, cfg.websiteUrl.replace(/^https?:\/\//i, ''));
+      if (cfg.emailAdmin) href = href.replace(/admin@putrabttstore\.web\.id/g, cfg.emailAdmin);
 
       // Handle WhatsApp URL scheme formatting
       if (href.startsWith('https://wa.me/')) {
@@ -273,16 +284,15 @@ function applyDynamicBranding() {
           const urlObj = new URL(href);
           const textParam = urlObj.searchParams.get('text');
           if (textParam) {
-            urlObj.searchParams.set('text', textParam.replace(/Putra Btt Store/gi, cfg.storeName).replace(/\bPBS\b/g, cfg.shortStoreName));
+            urlObj.searchParams.set('text', textParam.replace(/Putra Btt Store|Rain Store|HuraaFashion/gi, cfg.storeName).replace(/\bPBS\b/g, cfg.shortStoreName));
           }
           href = urlObj.toString();
         } catch (e) {
-          // Fallback if URL parsing fails for any reason
-          href = href.replace(/Putra Btt Store/gi, cfg.storeName).replace(/\bPBS\b/g, cfg.shortStoreName);
+          href = href.replace(/Putra Btt Store|Rain Store|HuraaFashion/gi, cfg.storeName).replace(/\bPBS\b/g, cfg.shortStoreName);
         }
-      } else if (href.startsWith('https://t.me/')) {
+      } else if (href.startsWith('https://t.me/') && cfg.telegramLink) {
         href = cfg.telegramLink;
-      } else if (href.includes('putrabttstore.web.id')) {
+      } else if (href.includes('putrabttstore.web.id') && cfg.websiteUrl) {
         href = cfg.websiteUrl;
       }
 
@@ -290,29 +300,48 @@ function applyDynamicBranding() {
     }
   });
 
-  // 4. Update elements with data-copy attributes
+  // 5. Update elements with data-copy attributes
   const copyBtns = document.querySelectorAll('[data-copy]');
   copyBtns.forEach(btn => {
     let val = btn.getAttribute('data-copy');
-    if (val) {
+    if (val && cfg.whatsappNumber) {
       val = val.replace(/6282340915319/g, cfg.whatsappNumber);
       btn.setAttribute('data-copy', val);
     }
   });
 
-  // 5. Update QRIS images & T&C Buttons
-  const qrisImages = document.querySelectorAll('img[src="qris.png"], img[alt*="QRIS"]');
-  qrisImages.forEach(img => {
-    img.src = cfg.qrisImagePath;
+  // 6. Update QRIS images, T&C & Footer Buttons
+  if (cfg.qrisImagePath) {
+    const qrisImages = document.querySelectorAll('img[src="qris.png"], img[alt*="QRIS"]');
+    qrisImages.forEach(img => {
+      img.src = cfg.qrisImagePath;
+    });
+  }
+
+  const waBtns = document.querySelectorAll('#tncWaBtn, .footer-wa-btn');
+  waBtns.forEach(tncWaBtn => {
+    if (tncWaBtn && cfg.whatsappNumber) {
+      tncWaBtn.href = `https://wa.me/${String(cfg.whatsappNumber).replace(/[^0-9]/g, '')}`;
+    }
   });
 
-  const tncWaBtn = document.getElementById('tncWaBtn');
-  if (tncWaBtn && cfg.whatsappNumber) {
-    tncWaBtn.href = `https://wa.me/${cfg.whatsappNumber}`;
+  const teleBtns = document.querySelectorAll('#tncTeleBtn, .footer-tele-btn');
+  teleBtns.forEach(tncTeleBtn => {
+    if (tncTeleBtn && (cfg.telegramLink || cfg.telegramUsername)) {
+      tncTeleBtn.href = cfg.telegramLink || `https://t.me/${cfg.telegramUsername}`;
+    }
+  });
+
+  const footerYear = document.getElementById('footerYear');
+  if (footerYear) {
+    footerYear.textContent = new Date().getFullYear();
   }
 
-  const tncTeleBtn = document.getElementById('tncTeleBtn');
-  if (tncTeleBtn && (cfg.telegramLink || cfg.telegramUsername)) {
-    tncTeleBtn.href = cfg.telegramLink || `https://t.me/${cfg.telegramUsername}`;
-  }
+  const footerBrand = document.querySelectorAll('.footer-brand-name');
+  footerBrand.forEach(el => {
+    if (cfg.storeName) el.textContent = cfg.storeName;
+  });
 }
+
+// Export function globally
+window.applyDynamicBranding = applyDynamicBranding;

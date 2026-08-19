@@ -352,11 +352,11 @@ window.showDetailByKey = function (groupKey) {
 async function loadProdukFromSheet() {
   showLoading();
   try {
-    const freshUrl = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(SHEET_NAME)}&_t=${Date.now()}`;
-    const res = await fetch(freshUrl, {
-      cache: 'no-store',
-      headers: { 'Cache-Control': 'no-cache, no-store, must-revalidate', 'Pragma': 'no-cache' }
-    });
+    const currentSheetId = window.CONFIG?.sheetIdProducts || SHEET_ID;
+    const currentSheetName = window.CONFIG?.sheetNameProducts || SHEET_NAME;
+    const timestamp = Date.now();
+    const freshUrl = `https://docs.google.com/spreadsheets/d/${currentSheetId}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(currentSheetName)}&_t=${timestamp}`;
+    const res = await fetch(freshUrl, { cache: 'no-store' });
     const text = await res.text();
     const json = JSON.parse(text.substring(47, text.length - 2));
     const rows = json.table.rows || [];
@@ -386,6 +386,8 @@ async function loadProdukFromSheet() {
     const prodCountEl = document.getElementById("product-count");
     if (prodCountEl) prodCountEl.textContent = `(${produkGroups.length} produk ready)`;
 
+    if (window.applyDynamicBranding) window.applyDynamicBranding();
+
   } catch (err) {
     console.error(err);
     const produkList = document.getElementById("produk-list");
@@ -405,11 +407,11 @@ async function loadProdukFromSheet() {
 // ===== Load Terms & Conditions Dari Sheet (Simple: Kolom A = judul, Kolom B = deskripsi) =====
 async function loadTncFromSheet() {
   try {
-    const freshTncUrl = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(SHEET_TNC_NAME)}&_t=${Date.now()}`;
-    const res = await fetch(freshTncUrl, {
-      cache: 'no-store',
-      headers: { 'Cache-Control': 'no-cache, no-store, must-revalidate', 'Pragma': 'no-cache' }
-    });
+    const currentSheetId = window.CONFIG?.sheetIdProducts || SHEET_ID;
+    const currentTncSheetName = window.CONFIG?.sheetNameTnc || SHEET_TNC_NAME;
+    const timestamp = Date.now();
+    const freshTncUrl = `https://docs.google.com/spreadsheets/d/${currentSheetId}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(currentTncSheetName)}&_t=${timestamp}`;
+    const res = await fetch(freshTncUrl, { cache: 'no-store' });
     const text = await res.text();
     const json = JSON.parse(text.substring(47, text.length - 2));
     const rows = json.table.rows || [];
@@ -593,7 +595,7 @@ ${detailPesananLines}
   const uniqueWAs = [...new Set(cart.map(c => c.wa || DEFAULT_WA))];
   const waTarget = uniqueWAs.length === 1 ? uniqueWAs[0] : DEFAULT_WA;
   if (btnCheckoutWA) {
-    btnCheckoutWA.href = `https://wa.me/${encodeURIComponent(waTarget.replace(/[^0-9]/g, ''))}?text=${encodeURIComponent(text)}`;
+    btnCheckoutWA.href = `https://wa.me/${encodeURIComponent(String(waTarget).replace(/[^0-9]/g, ''))}?text=${encodeURIComponent(text)}`;
   }
 }
 

@@ -1158,3 +1158,117 @@ main {
   .product-title { font-size: 0.98rem; }
   .price { font-size: 0.92rem; }
 }
+
+/* ══════════════════════════════════════════════
+   FULL-WIDTH PREMIUM FOOTER
+   ══════════════════════════════════════════════ */
+.site-footer-full {
+  background: linear-gradient(135deg, rgba(203, 150, 186, 0.28) 0%, rgba(176, 179, 214, 0.22) 50%, rgba(208, 221, 196, 0.28) 100%);
+  border-top: 2px solid rgba(203, 150, 186, 0.35);
+  backdrop-filter: blur(12px);
+  padding: 50px 0 25px;
+  margin-top: 60px;
+  position: relative;
+  overflow: hidden;
+  color: var(--text-dark);
+}
+
+.site-footer-full::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #CB96BA, #B0B3D6, #D0DDC4, #77A39A);
+}
+
+.footer-brand-wrap {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.footer-brand-logo-img {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  object-fit: cover;
+  box-shadow: 0 4px 12px rgba(203,150,186,0.3);
+  border: 2px solid var(--white);
+}
+
+.footer-brand-title {
+  font-family: 'Fredoka One', cursive;
+  font-size: 1.4rem;
+  color: var(--text-dark);
+  line-height: 1.1;
+}
+
+.footer-brand-desc {
+  font-size: 0.88rem;
+  color: #64748b;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.footer-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.footer-badge {
+  background: var(--white);
+  border: 1px solid rgba(203, 150, 186, 0.4);
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--primary-hover);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+}
+
+.footer-sec-title {
+  font-family: 'Fredoka One', cursive;
+  font-size: 1.1rem;
+  color: var(--text-dark);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.footer-nav-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-nav-list li {
+  margin-bottom: 10px;
+}
+
+.footer-nav-list a {
+  color: #475569;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.footer-nav-list a:hover {
+  color: var(--primary);
+  transform: translateX(4px);
+}
+
+.footer-bottom-bar {
+  border-top: 1px solid rgba(203, 150, 186, 0.3);
+  margin-top: 35px;
+  padding-top: 20px;
+  text-align: center;
+  font-size: 0.85rem;
+  color: #64748b;
+}
