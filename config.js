@@ -1,8 +1,8 @@
 // config.js
 window.CONFIG = {
   // Store Details
-  storeName: "Peony Store", // Full Store Name
-  shortStoreName: "Peony Store",
+  storeName: "Rains", // Full Store Name
+  shortStoreName: "Rains",
   whatsappNumber: "6283865477000", // Format: 62xxxxxxxxxx (no + or spaces)
   telegramUsername: "-",
   telegramLink: "",
@@ -24,10 +24,11 @@ window.CONFIG = {
 
   // Custom Theme Colors (Only used if activeTheme is set to "custom")
   customTheme: {
-    primary: "#EC4899",       // Main Brand Color
-    primaryHover: "#DB2777",  // Button Hover Color
-    primaryLight: "#FBCFE8",  // Light Background Accents
-    accent: "#FEF08A"         // Highlights, Badges
+    primary: "#CB96BA",       // Mauve Dust
+    primaryHover: "#B881A6",  // Mauve Dust Hover
+    primaryLight: "#F0E2EB",  // Venus Flower Tint
+    secondary: "#B0B3D6",     // Bluebell Frost
+    accent: "#D0DDC4"         // Green Beryl
   }
 };
 
@@ -45,11 +46,11 @@ function applyDynamicTheme() {
 
   const themes = {
     peony: {
-      primary: "#EC4899",
-      primaryHover: "#DB2777",
-      primaryLight: "#FBCFE8",
-      secondary: "#F472B6",
-      accent: "#FEF08A"
+      primary: "#CB96BA",
+      primaryHover: "#B881A6",
+      primaryLight: "#F0E2EB",
+      secondary: "#B0B3D6",
+      accent: "#D0DDC4"
     },
     green: {
       primary: "#00AA5B",

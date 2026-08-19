@@ -7,41 +7,49 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&family=Fredoka+One&family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
 
 :root {
-  --pink-hot:    #EC4899;
-  --pink-mid:    #F472B6;
-  --pink-light:  #FBCFE8;
-  --pink-pale:   #FDF2F8;
-  --pink-border: rgba(244,114,182,0.35);
+  /* Vintage Pastel Palette from Photo */
+  --mauve-dust:     #CB96BA;
+  --bluebell-frost: #B0B3D6;
+  --venus-flower:   #E0E4E7;
+  --green-beryl:    #D0DDC4;
+  --duck-egg:       #9BBCAC;
+  --forest-frolic:  #77A39A;
 
-  --blue-sky:    #BAE6FD;
-  --blue-mid:    #7DD3FC;
-  --blue-dk:     #0284C7;
+  --pink-hot:    #CB96BA;
+  --pink-mid:    #B0B3D6;
+  --pink-light:  #F0E2EB;
+  --pink-pale:   #F7F2F6;
+  --pink-border: rgba(203,150,186,0.35);
 
-  --yellow:      #FEF08A;
-  --yellow-dk:   #ca8a04;
+  --blue-sky:    #B0B3D6;
+  --blue-mid:    #9BBCAC;
+  --blue-dk:     #77A39A;
 
-  --cream:       #FFF8FB;
+  --yellow:      #D0DDC4;
+  --yellow-dk:   #77A39A;
+
+  --cream:       #FAFAF8;
   --white:       #ffffff;
-  --offwhite:    #FEF6FB;
+  --offwhite:    #F7F8F6;
 
-  --text-dark:   #5C2D6E;
-  --text-mid:    #9D4EAA;
-  --muted:       #C084CF;
-  --muted-lt:    #E9D5FF;
+  --text-dark:   #3E2D3B;
+  --text-mid:    #634B5E;
+  --muted:       #8E7188;
+  --muted-lt:    #D5C4D1;
 
-  --primary-color:       #EC4899;
-  --primary-color-hover: #DB2777;
-  --primary-light:       #FBCFE8;
-  --secondary-color:     #F472B6;
-  --accent-color:        #FEF08A;
+  --primary-color:       #CB96BA;
+  --primary-color-hover: #B881A6;
+  --primary-light:       #F0E2EB;
+  --secondary-color:     #B0B3D6;
+  --accent-color:        #D0DDC4;
 
-  --border:      rgba(244,114,182,0.25);
-  --border-mid:  rgba(244,114,182,0.4);
+  --border:      rgba(203,150,186,0.25);
+  --border-mid:  rgba(203,150,186,0.4);
   --border-radius: 20px;
 
-  --danger:      #F43F5E;
-  --success:     #34D399;
-  --success-dk:  #059669;
+  --danger:      #D9777F;
+  --success:     #77A39A;
+  --success-dk:  #5C827B;
   --nav-h:       64px;
 }
 
@@ -53,11 +61,10 @@ body {
   background:
     linear-gradient(
       180deg,
-      #EC4899 0px,
-      #F472B6 60px,
-      #FBCFE8 160px,
-      #FDE8F4 260px,
-      #FEF2FB 360px,
+      #CB96BA 0px,
+      #B0B3D6 70px,
+      #F0E2EB 170px,
+      #E0E4E7 280px,
       var(--offwhite) 520px
     );
   background-attachment: fixed;
@@ -71,7 +78,7 @@ body {
    HEADER
    ══════════════════════════════════════════════ */
 header {
-  background: linear-gradient(135deg, #EC4899 0%, #F472B6 50%, #c026d3 100%);
+  background: linear-gradient(135deg, #CB96BA 0%, #B0B3D6 45%, #77A39A 100%);
   color: var(--white);
   padding: 0;
   position: relative;
