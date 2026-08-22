@@ -211,6 +211,21 @@ function renderProduk(append = false) {
   }
 }
 
+function getFullProductName(item) {
+  if (!item) return "";
+  const variantObj = (typeof produkVariants !== "undefined" && Array.isArray(produkVariants))
+    ? produkVariants.find(p => p.nama === item.nama) || item
+    : item;
+  const nama = (item.nama || variantObj.nama || "").trim();
+  const group = (item.group || variantObj.group || "").trim();
+
+  if (!group) return nama;
+  if (nama.toLowerCase().startsWith(group.toLowerCase())) {
+    return nama;
+  }
+  return `${group} ${nama}`;
+}
+
 function buildSingleVariantWALink(v, defaultWaGroup) {
   const storeName = window.CONFIG?.storeName || "Peony Store";
   const now = new Date();
@@ -220,6 +235,7 @@ function buildSingleVariantWALink(v, defaultWaGroup) {
 
   const formatIDR = num => (Number(num) || 0).toLocaleString('id-ID');
   const priceIDR = formatIDR(v.harga);
+  const fullNama = getFullProductName(v);
 
   const text = `𓉳  ❤️︎  ⋆ 𓌔𓌔𓌔⠀${storeName} 𝐵𝑖𝑙𝑙  ࣪   .𖥔 ݁ ˖ 
 ︶︶︶ ⊹ ︶︶︶ ୨♡୧ ︶︶︶ ⊹ ︶︶︶ 
@@ -231,7 +247,7 @@ function buildSingleVariantWALink(v, defaultWaGroup) {
  ⊹  ♡⌇ 🌸  waktu  :  ${dateTimeFormatted}
 
 𓇚⠀✿  detail pesanan
-    ⊹ ꒰ 𓈒 ⓘ  pesanan 1  :  ${v.nama}  :  IDR. ${priceIDR}
+    ⊹ ꒰ 𓈒 ⓘ  pesanan 1  :  ${fullNama}  :  IDR. ${priceIDR}
 
 ⊹ ⎯⎯⎯  ꒰꒰  𓉸ྀི  total order : IDR. ${priceIDR}
 
@@ -495,7 +511,7 @@ window.addToCart = function (name, qty = 1) {
   const cart = getCart();
   const ex = cart.find(ci => ci.nama === name);
   if (ex) { ex.qty += qty; }
-  else { cart.push({ nama: item.nama, harga: item.harga, wa: item.wa || DEFAULT_WA, qty }); }
+  else { cart.push({ nama: item.nama, group: item.group || "", harga: item.harga, wa: item.wa || DEFAULT_WA, qty }); }
   setCart(cart);
 };
 
@@ -535,10 +551,11 @@ function updateCartUI() {
   wrap.innerHTML = cart.map(ci => {
     const sub = (ci.harga || 0) * (ci.qty || 1);
     total += sub;
+    const fullNama = getFullProductName(ci);
     return `
     <div class="d-flex align-items-center justify-content-between border rounded-3 p-2 mb-2 bg-light">
       <div>
-        <div class="fw-bold text-dark">${ci.nama}</div>
+        <div class="fw-bold text-dark">${fullNama}</div>
         <div class="text-pink-hot small">${money(ci.harga)} × ${ci.qty}</div>
       </div>
       <div class="d-flex align-items-center gap-1">
@@ -569,7 +586,8 @@ function updateCartUI() {
   const detailPesananLines = cart.map((ci, i) => {
     const itemSub = formatIDR((ci.harga || 0) * (ci.qty || 1));
     const qtyLabel = ci.qty > 1 ? ` (${ci.qty}x)` : '';
-    return `    ⊹ ꒰ 𓈒 ⓘ  pesanan ${i + 1}  :  ${ci.nama}${qtyLabel} (IDR. ${itemSub})`;
+    const fullNama = getFullProductName(ci);
+    return `    ⊹ ꒰ 𓈒 ⓘ  pesanan ${i + 1}  :  ${fullNama}${qtyLabel}  :  IDR. ${itemSub}`;
   }).join('\n');
 
   const totalIDR = formatIDR(total);
