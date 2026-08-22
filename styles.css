@@ -897,10 +897,18 @@ main {
   text-decoration: line-through;
 }
 
+.peony-feature-label {
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--text-dark);
+  margin-top: 8px;
+  margin-bottom: 4px;
+}
+
 .peony-feature-list {
   list-style: none;
   padding: 0;
-  margin: 10px 0 14px;
+  margin: 4px 0 14px;
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -910,14 +918,19 @@ main {
   font-size: 0.85rem;
   color: var(--text-dark);
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 8px;
   font-weight: 600;
+  line-height: 1.5;
 }
 
-.peony-feature-item i {
+.peony-feature-item i,
+.peony-bullet {
   color: var(--pink-hot);
-  font-size: 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 800;
+  flex-shrink: 0;
+  line-height: 1.5;
 }
 
 .btn-peony-cart {

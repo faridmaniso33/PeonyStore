@@ -279,8 +279,9 @@ window.showDetailByKey = function (groupKey) {
   const variantsHTML = group.variants.map((v, i) => {
     const stokOK = Number(v.stok) > 0;
     const fiturHTML = (v.deskripsi || []).length > 0
-      ? `<ul class="peony-feature-list">${(v.deskripsi || []).map(li =>
-        `<li class="peony-feature-item"><i class="fa-solid fa-sparkles"></i><span>${li}</span></li>`
+      ? `<div class="peony-feature-label">Deskripsi Produk :</div>
+         <ul class="peony-feature-list">${(v.deskripsi || []).map(li =>
+        `<li class="peony-feature-item"><span class="peony-bullet">✦</span><span>${li}</span></li>`
       ).join("")}</ul>`
       : "";
 
@@ -291,7 +292,6 @@ window.showDetailByKey = function (groupKey) {
         <div class="d-flex justify-content-between align-items-start mb-2">
           <div>
             <div class="peony-variant-title">${v.nama}</div>
-            <div class="small text-muted font-monospace">Varian ${i + 1}</div>
           </div>
           <div class="text-end">
             <div class="peony-variant-price">${money(v.harga)}</div>
@@ -382,7 +382,7 @@ async function loadProdukFromSheet() {
       const nama = c[0]?.v ?? "";
       const harga = Number(c[1]?.v ?? 0) || 0;
       const ikon = c[2]?.v ?? "";
-      const deskripsi = (c[3]?.v ?? "").toString().split("||").map(s => s.trim()).filter(Boolean);
+      const deskripsi = (c[3]?.v ?? "").toString().split(/\|\||II|Il|lI|\r?\n|\|/).map(s => s.trim()).filter(Boolean);
       const kategori = c[4]?.v ?? "";
       const wa = c[5]?.v ?? DEFAULT_WA;
       const harga_lama = Number(c[6]?.v ?? 0) || 0;
